@@ -5,10 +5,10 @@
  * Date: 2023/3/13
  */
 
-namespace Clearswitch\BleachHttp\Aisle;
+namespace ClearSwitch\BleachHttp\Aisle;
 
 
-use Clearswitch\BleachHttp\Request;
+use ClearSwitch\BleachHttp\Request;
 
 interface AisleInterface
 {
@@ -16,7 +16,7 @@ interface AisleInterface
      * 单个请求
      * @param Request $request
      * @return mixed
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function send(Request $request);
 
@@ -24,7 +24,7 @@ interface AisleInterface
      * 批量并发的请求
      * @param $requests
      * @return mixed
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function batchSend($requests);
 }

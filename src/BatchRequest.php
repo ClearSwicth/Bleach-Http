@@ -5,9 +5,9 @@
  * Date: 2021/5/24
  */
 
-namespace Clearswitch\BleachHttp;
+namespace ClearSwitch\BleachHttp;
 
-use Clearswitch\DoraemonIoc\Container;
+use ClearSwitch\DoraemonIoc\Container;
 
 /**
  * 批量请求
@@ -48,14 +48,14 @@ class BatchRequest
     public function __construct()
     {
         $this->ioc = new Container();
-        $this->ioc->bind('curl', 'ClearsWitch\BleachHttp\Aisle\CurAisle');
+        $this->ioc->bind('curl', 'ClearSwitch\BleachHttp\Aisle\CurAisle');
     }
 
     /**
      * 设置服务通道
      * @param $requestAisle
      * @return $this
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function setRequestAisle($requestAisle)
     {
@@ -67,7 +67,7 @@ class BatchRequest
      * Date: 2023/3/14 下午3:28
      * @return mixed
      * @throws \Exception
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function send()
     {
@@ -91,7 +91,7 @@ class BatchRequest
      * @param $request
      * @param null $batchNumber
      * @return $this
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function setRequests($request, $batchNumber = null)
     {
@@ -105,7 +105,7 @@ class BatchRequest
     /**
      * 获得请求的内容
      * @return array
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function getRequests()
     {

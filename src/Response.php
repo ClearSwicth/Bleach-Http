@@ -5,9 +5,9 @@
  * Date: 2023/3/14
  */
 
-namespace Clearswitch\BleachHttp;
+namespace ClearSwitch\BleachHttp;
 
-use ClearsWitch\DataConversion\DataConversion;
+use ClearSwitch\DataConversion\DataConversion;
 
 /**
  * 响应
@@ -54,7 +54,7 @@ class Response
     /**
      * 获得Response header
      * @return array|mixed|string
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function getHeaders()
     {
@@ -80,7 +80,7 @@ class Response
 
     /**
      * 获得原样的头部信息的输出
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function getRawHeaders()
     {
@@ -90,7 +90,7 @@ class Response
     /**
      * 获得 body
      * @return mixed|string
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function getRowContent()
     {
@@ -100,7 +100,7 @@ class Response
     /**
      *  body 转换成数组
      * @return mixed|string
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function getBody()
     {
@@ -114,7 +114,7 @@ class Response
     /**
      * 获得状态
      * @return mixed|string
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function getStatusCode()
     {
@@ -124,7 +124,7 @@ class Response
     /**
      * Date: 2023/3/14 上午11:08
      * @return mixed|null
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function getRowResponse()
     {
@@ -134,7 +134,7 @@ class Response
     /**
      * 获得Cookies
      * @return array
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function getCookies()
     {

@@ -1,15 +1,15 @@
 {
-    "name": "clearswitch/bleach-http",
+    "name": "ClearSwitch/bleach-http",
     "description": "client http",
     "type": "library",
     "require": {
-        "clearswitch/dataconversion": "^0.0.1",
-        "clearswitch/doraemon-ioc": "^0.0.1"
+        "ClearSwitch/dataconversion": "^0.0.1",
+        "ClearSwitch/doraemon-ioc": "^0.0.1"
     },
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Clearswitch\\BleachHttp\\": "src/"
+            "ClearSwitch\\BleachHttp\\": "src/"
         }
     },
     "authors": [

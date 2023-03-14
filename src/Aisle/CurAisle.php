@@ -5,10 +5,10 @@
  * Date: 2023/3/13
  */
 
-namespace Clearswitch\BleachHttp\Aisle;
+namespace ClearSwitch\BleachHttp\Aisle;
 
 
-use Clearswitch\BleachHttp\Request;
+use ClearSwitch\BleachHttp\Request;
 
 class CurAisle implements AisleInterface
 {
@@ -39,7 +39,7 @@ class CurAisle implements AisleInterface
      * @param Request $request
      * @return array
      * @throws \Exception
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function send(Request $request)
     {
@@ -66,7 +66,7 @@ class CurAisle implements AisleInterface
      * 批量请求
      * @param $request
      * @return mixed
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function batchSend($request)
     {
@@ -108,7 +108,7 @@ class CurAisle implements AisleInterface
     /**
      * curl 的准备工作
      * @return array
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     protected function prepare()
     {

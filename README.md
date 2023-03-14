@@ -3,7 +3,7 @@ Client http
 
 ![image](https://github.com/ClearSwicth/icon/blob/master/img/Bleachanime.png?raw=true)
 ```php
-use Clearswitch\BleachHttp\Request;
+use ClearSwitch\BleachHttp\Request;
 $request=new Request();
 //设置请求的地址
 $request->setUrl("url");
@@ -27,7 +27,7 @@ $response=$request->send();
 ```
 # 响应
 ```php
- use Clearswitch\BleachHttp\Request;
+ use ClearSwitch\BleachHttp\Request;
  $request=new Request();
  $response=$request->send();
  //获得响应的数据，帮你转为数组
@@ -49,8 +49,8 @@ $request->send()->getBody();
 ```
 #批量请求
 ```php
-use Clearswitch\BleachHttp\BatchRequest;
-use Clearswitch\BleachHttp\Request;
+use ClearSwitch\BleachHttp\BatchRequest;
+use ClearSwitch\BleachHttp\Request;
 $batch=new BatchRequest();
 $requests = [];
 

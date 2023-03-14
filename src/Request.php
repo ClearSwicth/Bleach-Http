@@ -5,11 +5,11 @@
  * Date: 2023/3/13
  */
 
-namespace Clearswitch\BleachHttp;
+namespace ClearSwitch\BleachHttp;
 
 
-use ClearsWitch\DataConversion\DataConversion;
-use Clearswitch\DoraemonIoc\Container;
+use ClearSwitch\DataConversion\DataConversion;
+use ClearSwitch\DoraemonIoc\Container;
 
 class Request
 {
@@ -80,14 +80,14 @@ class Request
     public function __construct()
     {
         $this->ioc = new Container();
-        $this->ioc->bind('curl', 'ClearsWitch\BleachHttp\Aisle\CurAisle');
+        $this->ioc->bind('curl', 'ClearSwitch\BleachHttp\Aisle\CurAisle');
     }
 
     /**
      * 设置服务通道
      * @param $requestAisle
      * @return $this
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function setRequestAisle($requestAisle)
     {
@@ -99,7 +99,7 @@ class Request
      * 获得请求地址
      * @param $url
      * @return $this
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function setUrl($url)
     {
@@ -110,7 +110,7 @@ class Request
     /**
      * 获得请求的地址
      * @return mixed
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function getUrl()
     {
@@ -121,7 +121,7 @@ class Request
      * 设置请求方式
      * @param $method
      * @return $this
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function setMethod($method)
     {
@@ -132,7 +132,7 @@ class Request
     /**
      * 获得请求方法
      * @return string
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function getMethod()
     {
@@ -144,7 +144,7 @@ class Request
      * @param $content
      * @param string $type
      * @return $this
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function setContent($content, $type = "json")
     {
@@ -156,7 +156,7 @@ class Request
     /**
      * 获得请求参数
      * @return mixed
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function getContent()
     {
@@ -167,7 +167,7 @@ class Request
      * 设置请求参数
      * @param array $headers
      * @return $this
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function setHeader(array $headers)
     {
@@ -178,7 +178,7 @@ class Request
     /**
      * 获得请求参数
      * @return array
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function getHeader()
     {
@@ -189,7 +189,7 @@ class Request
      * 设置超时时间
      * @param int $timeOut
      * @return $this
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function setTimeOut(int $timeOut)
     {
@@ -200,7 +200,7 @@ class Request
     /**
      * 获得超时时间
      * @return int
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function getTimeOut()
     {
@@ -212,7 +212,7 @@ class Request
      * @param $host
      * @param null $port
      * @return $this
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function setProxy($host, $port = null)
     {
@@ -224,7 +224,7 @@ class Request
     /**
      * 获取代理地址
      * @return string
-     * @author clearSwitch。
+     * @author ClearSwitch。
      */
     public function getProxyHost()
     {
@@ -234,7 +234,7 @@ class Request
     /**
      * 获取代理端口
      * @return int
-     * @author clearSwitch。
+     * @author ClearSwitch。
      */
     public function getProxyPort()
     {
@@ -243,7 +243,7 @@ class Request
 
     /**
      * 发送请求
-     * @author clearSwitch
+     * @author ClearSwitch
      */
     public function send()
     {
