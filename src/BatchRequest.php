@@ -5,7 +5,7 @@
  * Date: 2021/5/24
  */
 
-namespace BleachHttp;
+namespace Clearswitch\BleachHttp;
 
 use Clearswitch\DoraemonIoc\Container;
 

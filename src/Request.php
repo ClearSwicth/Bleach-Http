@@ -5,7 +5,7 @@
  * Date: 2023/3/13
  */
 
-namespace BleachHttp;
+namespace Clearswitch\BleachHttp;
 
 
 use ClearsWitch\DataConversion\DataConversion;

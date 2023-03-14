@@ -5,10 +5,10 @@
  * Date: 2023/3/13
  */
 
-namespace BleachHttp\Aisle;
+namespace Clearswitch\BleachHttp\Aisle;
 
 
-use BleachHttp\Request;
+use Clearswitch\BleachHttp\Request;
 
 interface AisleInterface
 {
