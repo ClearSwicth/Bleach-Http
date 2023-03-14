@@ -1,0 +1,22 @@
+{
+    "name": "clearswitch/bleach-http",
+    "description": "client http",
+    "type": "library",
+    "require": {
+        "clearswitch/dataconversion": "^0.0.1",
+        "clearswitch/doraemon-ioc": "^0.0.1"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Clearswitch\\BleachHttp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ClearSwitch",
+            "email": "903221813@qq.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
