@@ -1,5 +1,5 @@
 {
-    "name": "ClearSwitch/bleach-http",
+    "name": "clearswitch/bleach-http",
     "description": "client http",
     "type": "library",
     "require": {
