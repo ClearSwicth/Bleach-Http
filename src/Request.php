@@ -80,7 +80,7 @@ class Request
     public function __construct()
     {
         $this->ioc = new Container();
-        $this->ioc->bind('curl', 'BleachHttp\Aisle\CurAisle');
+        $this->ioc->bind('curl', 'ClearsWitch\BleachHttp\Aisle\CurAisle');
     }
 
     /**
