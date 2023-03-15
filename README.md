@@ -14,7 +14,7 @@ $request->setHeader(['Content-Type'=>'application/json']);
 //设置代理
 $request->setProxy('host','port');
 //设置请求体的格式
-//暂时支持 array,json,xml 的互相转换
+//暂时支持 array,json,xml,urlencoded 的互相转换
 $request->setContent([],'json');
 //设置请求方法默认是get
 $request->setMethod("post");
