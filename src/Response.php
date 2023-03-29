@@ -104,9 +104,13 @@ class Response
      */
     public function getBody()
     {
-        if (is_array($body = (new DataConversion())->dataConversion($this->content, 'array'))) {
-            return $body;
-        } else {
+        try {
+            if (is_array($body = (new DataConversion())->dataConversion($this->content, 'array'))) {
+                return $body;
+            } else {
+                return $this->content;
+            }
+        } catch (\Exception $re) {
             return $this->content;
         }
     }
