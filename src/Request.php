@@ -148,7 +148,7 @@ class Request
      */
     public function setContent($content, $type = "json")
     {
-        if ($type = "urlencoded") {
+        if ($type == "urlencoded") {
             $data = http_build_query($content, '', "&", PHP_QUERY_RFC1738);
         } else {
             $data = (new DataConversion())->dataConversion($content, $type);
