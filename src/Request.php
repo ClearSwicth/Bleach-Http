@@ -8,6 +8,7 @@
 namespace ClearSwitch\BleachHttp;
 
 
+use ClearSwitch\BleachHttp\Aisle\AisleInterface;
 use ClearSwitch\DataConversion\DataConversion;
 use ClearSwitch\DoraemonIoc\Container;
 
@@ -62,12 +63,6 @@ class Request
     protected $proxyPort;
 
     /**
-     * 服务容器
-     * @var
-     */
-    protected $ioc;
-
-    /**
      * 请求通道
      * @var
      */
@@ -79,8 +74,7 @@ class Request
      */
     public function __construct()
     {
-        $this->ioc = new Container();
-        $this->ioc->bind('curl', 'ClearSwitch\BleachHttp\Aisle\CurAisle');
+        Container::bind('curl', 'ClearSwitch\BleachHttp\Aisle\CurAisle');
     }
 
     /**
@@ -93,6 +87,23 @@ class Request
     {
         $this->requestAisle = $requestAisle;
         return $this;
+    }
+
+    /**
+     * 增加自己的请求通道
+     * @param $aisleName
+     * @param $classPath
+     * @throws \Exception
+     * @author clearSwitch
+     */
+    public function addAisle($aisleName, $classPath)
+    {
+        if (is_callable($classPath)) {
+            $newAisle = Container::make($aisleName, $classPath);
+            if (!$newAisle instanceof AisleInterface) {
+                throw new \Exception("新增请求通道必须继承 AisleInterface");
+            }
+        }
     }
 
     /**
@@ -150,6 +161,7 @@ class Request
     {
         if ($type == "urlencoded") {
             $data = http_build_query($content, '', "&", PHP_QUERY_RFC1738);
+            $this->addHeader(['Content-Type' => 'application/x-www-form-urlencoded']);
         } else {
             $data = (new DataConversion())->dataConversion($content, $type);
         }
@@ -246,12 +258,22 @@ class Request
     }
 
     /**
+     * 添加请求头
+     * @param array $headers
+     * @author clearSwitch
+     */
+    public function addHeader(array $headers)
+    {
+        $this->header = array_unique(array_merge($this->header, $headers));
+    }
+
+    /**
      * 发送请求
      * @author ClearSwitch
      */
     public function send()
     {
-        $aisle = $this->ioc->make($this->requestAisle);
+        $aisle = Container::make($this->requestAisle);
         list($status, $headers, $content, $response) = $aisle->send($this);
         return new Response($status, $headers, $content, $response);
     }
