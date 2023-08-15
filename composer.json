@@ -3,8 +3,8 @@
     "description": "client http",
     "type": "library",
     "require": {
-        "clearswitch/dataconversion": "^0.0.1",
-        "clearswitch/doraemon-ioc": "^0.0.1"
+        "clearswitch/dataconversion": "dev-master",
+        "clearswitch/doraemon-ioc": "dev-master"
     },
     "license": "MIT",
     "autoload": {
