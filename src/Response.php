@@ -104,13 +104,15 @@ class Response
      */
     public function getBody()
     {
-        try {
-            if (is_array($body = (new DataConversion())->dataConversion($this->content, 'array'))) {
-                return $body;
+        if (strpos($this->headers, 'Content-Type')) {
+            if (strpos($this->headers, 'application/json')) {
+                return json_decode($this->content, true);
+            } elseif (strpos($this->headers, 'application/xml')) {
+                return json_decode(simplexml_load_string($this->content), true);
             } else {
                 return $this->content;
             }
-        } catch (\Exception $re) {
+        } else {
             return $this->content;
         }
     }
