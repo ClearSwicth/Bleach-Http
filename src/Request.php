@@ -13,6 +13,7 @@ use ClearSwitch\BleachHttp\Container\Ioc;
 use ClearSwitch\BleachHttp\Serializer\Body\FormDataBodySerializer;
 use ClearSwitch\BleachHttp\Serializer\Body\JsonBodySerializer;
 use ClearSwitch\BleachHttp\Serializer\Body\UrlencodedBodySerializer;
+use ClearSwitch\BleachHttp\Serializer\Body\XmlBodeSerializer;
 
 class Request
 {
@@ -91,7 +92,7 @@ class Request
      */
     public function __construct()
     {
-        Ioc::bind('curl', 'ClearSwitch\BleachHttp\Aisle\CurAisle');
+        Ioc::bind('curl', 'ClearSwitch\BleachHttp\Aisles\CurAisle');
     }
 
     /**
@@ -201,7 +202,7 @@ class Request
         }
         switch ($serializer) {
             case 'xml':
-                $this->bodySerializer = JsonBodySerializer::class;
+                $this->bodySerializer = XmlBodeSerializer::class;
                 break;
             case 'form_data':
                 $this->bodySerializer = FormDataBodySerializer::class;
@@ -221,7 +222,7 @@ class Request
     public function getContent()
     {
         $class = $this->bodySerializer;
-        $content = $class::serialize($this->bodies);
+        $content = $class::serializer($this->content);
         return $this->content = $content;
     }
 
@@ -249,7 +250,7 @@ class Request
             return $this->header;
         }
         $class = $this->bodySerializer;
-        $headers = array_merge($this->headers, $class::headers($this->bodies));
+        $headers = array_merge($this->header, $class::headers());
         return $headers;
     }
 
