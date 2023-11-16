@@ -5,7 +5,7 @@
  * Date: 2023/3/13
  */
 
-namespace ClearSwitch\BleachHttp\Aisle;
+namespace ClearSwitch\BleachHttp\Aisles;
 
 
 use ClearSwitch\BleachHttp\Request;

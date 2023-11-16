@@ -5,14 +5,17 @@ use ClearSwitch\BleachHttp\Request;
 $request=new Request();
 //设置请求的地址
 $request->setUrl("url");
-//设置请求通道，展示只是支持curl
+//设置请求通道，支持curl
 $request->setRequestAisle("curl");
+// 可以添加自己的通道分两步1.先注册通道，2设置通道
+$request->addAisle('通道名字','回调')
+$request->setRequestAisle("通道名字")
 //设置请求头
 $request->setHeader(['Content-Type'=>'application/json']);
 //设置代理
 $request->setProxy('host','port');
 //设置请求体的格式
-//暂时支持 array,json,xml,urlencoded 的互相转换
+//暂时支持 'json', 'xml', 'form_data', 'urlencoded'的body
 $request->setContent([],'json');
 //设置请求方法默认是get
 $request->setMethod("post");

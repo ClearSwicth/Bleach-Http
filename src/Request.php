@@ -8,9 +8,11 @@
 namespace ClearSwitch\BleachHttp;
 
 
-use ClearSwitch\BleachHttp\Aisle\AisleInterface;
-use ClearSwitch\DataConversion\DataConversion;
-use ClearSwitch\DoraemonIoc\Container;
+use ClearSwitch\BleachHttp\Aisles\AisleInterface;
+use ClearSwitch\BleachHttp\Container\Ioc;
+use ClearSwitch\BleachHttp\Serializer\Body\FormDataBodySerializer;
+use ClearSwitch\BleachHttp\Serializer\Body\JsonBodySerializer;
+use ClearSwitch\BleachHttp\Serializer\Body\UrlencodedBodySerializer;
 
 class Request
 {
@@ -68,13 +70,28 @@ class Request
      */
     protected $requestAisle = 'curl';
 
+
+    /**
+     * 消息体序列化器
+     * @var string
+     * @author ClearSwitch
+     */
+    protected $bodySerializer = JsonBodySerializer::class;
+
+
+    /**
+     * 序列化的类型
+     * @var string[]
+     */
+    protected $serializerType = ['json', 'xml', 'form_data', 'urlencoded'];
+
     /**
      * 注册请求通道
      * Request constructor
      */
     public function __construct()
     {
-        Container::bind('curl', 'ClearSwitch\BleachHttp\Aisle\CurAisle');
+        Ioc::bind('curl', 'ClearSwitch\BleachHttp\Aisle\CurAisle');
     }
 
     /**
@@ -83,7 +100,7 @@ class Request
      * @return $this
      * @author ClearSwitch
      */
-    public function setRequestAisle($requestAisle)
+    public function setRequestAisle($requestAisle): Request
     {
         $this->requestAisle = $requestAisle;
         return $this;
@@ -99,7 +116,7 @@ class Request
     public function addAisle($aisleName, $classPath)
     {
         if (is_callable($classPath)) {
-            $newAisle = Container::make($aisleName, $classPath);
+            $newAisle = Ioc::make($aisleName, $classPath);
             if (!$newAisle instanceof AisleInterface) {
                 throw new \Exception("新增请求通道必须继承 AisleInterface");
             }
@@ -112,7 +129,7 @@ class Request
      * @return $this
      * @author ClearSwitch
      */
-    public function setUrl($url)
+    public function setUrl($url): Request
     {
         $this->url = $url;
         return $this;
@@ -134,7 +151,7 @@ class Request
      * @return $this
      * @author ClearSwitch
      */
-    public function setMethod($method)
+    public function setMethod($method): Request
     {
         $this->method = strtoupper($method);
         return $this;
@@ -145,28 +162,55 @@ class Request
      * @return string
      * @author ClearSwitch
      */
-    public function getMethod()
+    public function getMethod(): string
     {
         return $this->method;
     }
 
+
     /**
-     * 设置请求参数
-     * @param $content
-     * @param string $type
+     * 设置请求数据
+     * @param array $data
      * @return $this
-     * @author ClearSwitch
+     * @author SwitchSwitch
      */
-    public function setContent($content, $type = "json")
+    public function setContent(array $data, $serializer = 'json'): Request
     {
-        if ($type == "urlencoded") {
-            $data = http_build_query($content, '', "&", PHP_QUERY_RFC1738);
-            $this->addHeader(['Content-Type' => 'application/x-www-form-urlencoded']);
-        } else {
-            $data = (new DataConversion())->dataConversion($content, $type);
+        if (!in_array($serializer, $this->serializerType)) {
+            throw new \Exception("序列化类型错");
+        }
+        if ($serializer != 'json') {
+            $this->getSerializer($serializer);
         }
         $this->content = $data;
         return $this;
+    }
+
+
+    /**
+     *  获得序列器
+     * @param $serializer
+     * @return void
+     * @throws \Exception
+     * @author SwitchSwitch
+     */
+    protected function getSerializer($serializer)
+    {
+        if (!in_array($serializer, $this->serializerType)) {
+            throw new \Exception("序列化类型错");
+        }
+        switch ($serializer) {
+            case 'xml':
+                $this->bodySerializer = JsonBodySerializer::class;
+                break;
+            case 'form_data':
+                $this->bodySerializer = FormDataBodySerializer::class;
+                break;
+            case 'urlencoded':
+                $this->bodySerializer = UrlencodedBodySerializer::class;
+                break;
+            default:
+        }
     }
 
     /**
@@ -176,8 +220,11 @@ class Request
      */
     public function getContent()
     {
-        return $this->content;
+        $class = $this->bodySerializer;
+        $content = $class::serialize($this->bodies);
+        return $this->content = $content;
     }
+
 
     /***
      * 设置请求参数
@@ -185,7 +232,7 @@ class Request
      * @return $this
      * @author ClearSwitch
      */
-    public function setHeader(array $headers)
+    public function setHeader(array $headers): Request
     {
         $this->header = $headers;
         return $this;
@@ -196,9 +243,14 @@ class Request
      * @return array
      * @author ClearSwitch
      */
-    public function getHeader()
+    public function getHeader(): array
     {
-        return $this->header;
+        if (!in_array($this->getMethod(), ['POST', 'PUT', 'DELETE', 'PATCH'])) {
+            return $this->header;
+        }
+        $class = $this->bodySerializer;
+        $headers = array_merge($this->headers, $class::headers($this->bodies));
+        return $headers;
     }
 
     /**
@@ -207,7 +259,7 @@ class Request
      * @return $this
      * @author ClearSwitch
      */
-    public function setTimeOut(int $timeOut)
+    public function setTimeOut(int $timeOut): Request
     {
         $this->timeOut = $timeOut;
         return $this;
@@ -218,7 +270,7 @@ class Request
      * @return int
      * @author ClearSwitch
      */
-    public function getTimeOut()
+    public function getTimeOut(): int
     {
         return $this->timeOut;
     }
@@ -230,7 +282,7 @@ class Request
      * @return $this
      * @author ClearSwitch
      */
-    public function setProxy($host, $port = null)
+    public function setProxy($host, $port = null): Request
     {
         $this->proxyHost = $host;
         $this->proxyPort = $port;
@@ -242,7 +294,7 @@ class Request
      * @return string
      * @author ClearSwitch。
      */
-    public function getProxyHost()
+    public function getProxyHost(): string
     {
         return $this->proxyHost;
     }
@@ -252,7 +304,7 @@ class Request
      * @return int
      * @author ClearSwitch。
      */
-    public function getProxyPort()
+    public function getProxyPort(): int
     {
         return $this->proxyPort;
     }
@@ -268,12 +320,13 @@ class Request
     }
 
     /**
-     * 发送请求
-     * @author ClearSwitch
+     * @return Response
+     * @throws \Exception
+     * @author SwitchSwitch
      */
-    public function send()
+    public function send(): Response
     {
-        $aisle = Container::make($this->requestAisle);
+        $aisle = Ioc::make($this->requestAisle);
         list($status, $headers, $content, $response) = $aisle->send($this);
         return new Response($status, $headers, $content, $response);
     }
