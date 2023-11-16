@@ -222,8 +222,7 @@ class Request
     public function getContent()
     {
         $class = $this->bodySerializer;
-        $content = $class::serializer($this->content);
-        return $this->content = $content;
+        return $class::serializer($this->content);
     }
 
 
