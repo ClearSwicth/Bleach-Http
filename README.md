@@ -17,6 +17,10 @@ $request->setProxy('host','port');
 //设置请求体的格式
 //暂时支持 'json', 'xml', 'form_data', 'urlencoded'的body
 $request->setContent([],'json');
+//如果上传文件的时候， 文件需要打标
+$data = [
+            'file' => TagParam::file('/Users/daikai/project/php/logisticApi/.env')
+        ];
 //设置请求方法默认是get
 $request->setMethod("post");
 //设置请求超时时间 默认10
