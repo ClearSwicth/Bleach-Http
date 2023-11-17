@@ -250,6 +250,7 @@ class Request
         }
         $class = $this->bodySerializer;
         $headers = array_merge($this->header, $class::headers());
+        $headers['Content-Length'] = strlen($this->getContent());
         return $headers;
     }
 
