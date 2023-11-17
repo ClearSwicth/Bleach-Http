@@ -289,12 +289,13 @@ class Request
         return $this;
     }
 
+
     /**
      * 获取代理地址
      * @return string
      * @author ClearSwitch。
      */
-    public function getProxyHost(): string
+    public function getProxyHost()
     {
         return $this->proxyHost;
     }
@@ -304,7 +305,7 @@ class Request
      * @return int
      * @author ClearSwitch。
      */
-    public function getProxyPort(): int
+    public function getProxyPort()
     {
         return $this->proxyPort;
     }
