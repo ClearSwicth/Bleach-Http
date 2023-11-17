@@ -104,14 +104,10 @@ class Response
      */
     public function getBody()
     {
-        if (strpos($this->headers, 'Content-Type')) {
-            if (strpos($this->headers, 'application/json')) {
-                return json_decode($this->content, true);
-            } elseif (strpos($this->headers, 'application/xml')) {
-                return json_decode(simplexml_load_string($this->content), true);
-            } else {
-                return $this->content;
-            }
+        if (strpos($this->headers, 'application/json')) {
+            return json_decode($this->content, true);
+        } elseif (strpos($this->headers, 'application/xml')) {
+            return json_decode(simplexml_load_string($this->content), true);
         } else {
             return $this->content;
         }
