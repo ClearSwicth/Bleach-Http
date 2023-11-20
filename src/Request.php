@@ -221,8 +221,12 @@ class Request
      */
     public function getContent()
     {
-        $class = $this->bodySerializer;
-        return $class::serializer($this->content);
+        if (!empty($this->content)) {
+            $class = $this->bodySerializer;
+            return $class::serializer($this->content);
+        } else {
+            return null;
+        }
     }
 
 
