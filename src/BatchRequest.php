@@ -7,7 +7,8 @@
 
 namespace ClearSwitch\BleachHttp;
 
-use ClearSwitch\DoraemonIoc\Container;
+
+use ClearSwitch\BleachHttp\Container\Ioc;
 
 /**
  * 批量请求
@@ -35,20 +36,12 @@ class BatchRequest
      */
     public $requestAisle = 'curl';
 
-
-    /**
-     * 服务容器
-     * @var
-     */
-    protected $ioc;
-
     /**
      * BatchRequest constructor.
      */
     public function __construct()
     {
-        $this->ioc = new Container();
-        $this->ioc->bind('curl', 'ClearSwitch\BleachHttp\Aisle\CurAisle');
+        Ioc::bind('curl', 'ClearSwitch\BleachHttp\Aisles\CurAisle');
     }
 
     /**
@@ -77,7 +70,7 @@ class BatchRequest
             throw new \Exception('请求体不能为空');
         }
         foreach ($this->getRequests() as $v) {
-            $response = $this->ioc->make($this->requestAisle)->batchSend($v);
+            $response = Ioc::make($this->requestAisle)->batchSend($v);
             $result = array_merge($result, $response);
         };
         foreach ($result as $v) {
