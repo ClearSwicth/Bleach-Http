@@ -112,8 +112,8 @@ class CurAisle implements AisleInterface
      */
     protected function prepare()
     {
-        if ($this->request->getMethod() == 'GET' && is_array($this->request->getContent())) {
-            $url = $this->request->getUrl() . "?" . http_build_query($this->request->getContent());
+        if ($this->request->getMethod() == 'GET' && $this->request->getSerializer()=='urlencoded' ) {
+            $url = $this->request->getUrl() . "?" .$this->request->getContent();
         } else {
             $url = $this->request->getUrl();
         }

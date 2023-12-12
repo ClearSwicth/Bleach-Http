@@ -81,6 +81,12 @@ class Request
 
 
     /**
+     * 序列化方式
+     * @var string
+     */
+    protected $serialize = '';
+
+    /**
      * 序列化的类型
      * @var string[]
      */
@@ -180,13 +186,18 @@ class Request
         if (!in_array($serializer, $this->serializerType)) {
             throw new \Exception("序列化类型错");
         }
+        $this->serializer = $serializer;
         if ($serializer != 'json') {
-            $this->getSerializer($serializer);
+            $this->getSerializerBody($serializer);
         }
         $this->content = $data;
         return $this;
     }
 
+    public function getSerializer()
+    {
+        return $this->serializer;
+    }
 
     /**
      *  获得序列器
@@ -195,7 +206,7 @@ class Request
      * @throws \Exception
      * @author SwitchSwitch
      */
-    protected function getSerializer($serializer)
+    protected function getSerializerBody($serializer)
     {
         if (!in_array($serializer, $this->serializerType)) {
             throw new \Exception("序列化类型错");
