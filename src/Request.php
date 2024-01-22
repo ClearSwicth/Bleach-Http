@@ -84,7 +84,7 @@ class Request
      * 序列化方式
      * @var string
      */
-    protected $serialize = '';
+    protected $serializer = '';
 
     /**
      * 序列化的类型
